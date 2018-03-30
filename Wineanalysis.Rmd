@@ -26,7 +26,7 @@ library(tidyr)
 
 
 ```
-# Load the Data
+## Load the Data
 
 ```{r}
 #getwd()
@@ -34,7 +34,7 @@ wine <- read.csv("wineQualityReds.csv",row.names=NULL)
 wine$X <- NULL
 ```
 
-#Univariate Plots Section
+## Univariate Plots Section
 
 ```{r}
 str(wine)
