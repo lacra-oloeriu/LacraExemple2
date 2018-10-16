@@ -3,13 +3,14 @@ output:
   html_document: default
   pdf_document: default
 ---
-
 ```{r}
 #install.packages("knitr")
 #hide code as a default setting globaly
 knitr::opts_chunk$set(echo = FALSE, include=TRUE, results="hide")
+knitr::opts_chunk$set(fig.width=9,fig.height=5,fig.path='Figs/',
+                      fig.align='center',tidy=TRUE,
+                      echo=FALSE,warning=FALSE,message=FALSE)
 ```
-
 
 # Explore and Summarize Data by Oloeriu Lacramioara
 
@@ -32,7 +33,7 @@ library(tidyr)
 
 
 ```
-## Load the Data
+# Load the Data
 
 ```{r}
 #getwd()
@@ -40,7 +41,7 @@ wine <- read.csv("wineQualityReds.csv",row.names=NULL)
 wine$X <- NULL
 ```
 
-## Univariate Plots Section
+#Univariate Plots Section
 
 ```{r}
 str(wine)
@@ -332,7 +333,6 @@ multi_qplot(density, volatile.acidity, quality.level) +
   xlab("Density (g/cm^3)") +
   ylab("Volatile acidity (g/cm^3)") +
   labs(color="Quality level")
-
 ```
 
 The densities of high quality wines are concentrated between 0.994 and 0.998, and the lower part of volatile acidity (y axis)
@@ -488,7 +488,7 @@ print(alcoQuaDensity, vp = define_region(2, 2))
 
 #Description Three
 
-We observed the opposite direction to which quality levels are heading. Wine with high percent alcohol content and low volatile acidity tends to be rated as high quality wine. Based on the result, we can see that the volatile acidity in wine and percent alcohol content are two important components in the quality and taste of red wines.
+As we can see, when volatile acidity is greater than 1, the probability of the wine being excellent is zero. When volatile acidity is either 0 or 0.3, there is roughly a 40% probability that the wine is excellent. However, when volatile acidity is between 1 and 1.2 there is an 80% chance that the wine is bad. Moreover, any wine with a volatile acidity greater than 1.4 has a 100% chance of being bad. Therefore, volatile acidity is a good predictor for bad wines.
 
 #Reflection
 

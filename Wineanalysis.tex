@@ -1,0 +1,496 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{}
+    \pretitle{\vspace{\droptitle}}
+  \posttitle{}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#install.packages("knitr")}
+\CommentTok{#hide code as a default setting globaly}
+\NormalTok{knitr}\OperatorTok{::}\NormalTok{opts_chunk}\OperatorTok{$}\KeywordTok{set}\NormalTok{(}\DataTypeTok{echo =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{include=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{results=}\StringTok{"hide"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Explore and Summarize Data by Oloeriu
+Lacramioara}\label{explore-and-summarize-data-by-oloeriu-lacramioara}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'gridExtra'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     combine
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'GGally'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     nasa
+\end{verbatim}
+
+\subsection{Load the Data}\label{load-the-data}
+
+\subsection{Univariate Plots Section}\label{univariate-plots-section}
+
+Our dataset consists of 12 variables, with 1599 observations. Quality
+variable is discrete and the others are continuous.
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-5-1.pdf}
+Red wine quality is normally distributed and concentrated around 5 and
+6.
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+The distribution of fixed acidity is right skewed, and concentrated
+around 7.9
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-7-1.pdf}
+The distribution of volatile acidity seem to be unclear whether it is
+bimodal or unimodel, right skewed or normal.
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-8-1.pdf}
+The distribution of citric acid is not normal
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+The distribution of residual sugar is right skewed, and concentrated
+around 2. There are a few outliers in the plot.
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+The distribution of chlorides is normal, and concentrated around 0.08.
+The plot has some outliers.
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+The distribution of free sulfur dioxide is right skewed and concentrated
+around 14
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+The distribution of total sulfur dioxide is right skewed and
+concentrated around 38. There are a few outliers in the plot.
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+The distribution of density is normal and concentrated around 0.9967
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+The distribution of pH is normal and concentrated around 3.310
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+The distribution of sulphates is right skewed and concentrated around
+0.6581. The plot has some outliers.
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+The distribution of alcohol is right skewed and concentrated around
+10.20
+
+We divide the data into 2 groups: high quality group contains
+observations whose quality is 7 or 8, and low quality group has
+observations whose quality is 3 or 4. After examining the difference in
+each feature between the two groups, we see that volatile acidity,
+density, and citric acid may have some correation with quality. Let's
+visualize the data to see the difference.
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+\section{Univariate Analysis}\label{univariate-analysis}
+
+What is the structure of your dataset? There are 1,599 red wines in the
+dataset with 11 features on the chemical properties of the wine. (
+fixed.acidity, volatile.acidity, citric.acid, residual.sugar, chlorides,
+free.sulfur.dioxide, total.sulfur.dioxide, density, pH, sulphates,
+alcohol, and quality).
+
+\section{Other observations:}\label{other-observations}
+
+The median quality is 6. Most wines have a pH of 3.4 or higher. About
+75\% of wine have quality that is lower than 6. The median percent
+alcohol content is 10.20 and the max percent alcohol content is 14.90.
+
+What is/are the main feature(s) of interest in your dataset? The main
+features in the data set are pH and quality. I'd like to determine which
+features are best for predicting the quality of a wine. I suspect pH and
+some combination of the other variables can be used to build a
+predictive model to grade the quality of wines.
+
+What other features in the dataset do you think will help support your
+investigation into your feature(s) of interest? Volatile acidity, citric
+acid, and alcohol likely contribute to the quality of a wine. I think
+volatile acidity (the amount of acetic acid in wine) and alcohol (the
+percent alcohol content of the wine) probably contribute most to the
+quality after researching information on wine quality.
+
+Did you create any new variables from existing variables in the dataset?
+I created a new variable called ``quality.level'' which is categorically
+divided into ``low'', ``average'', and ``high''. This grouping method
+will help us detect the difference among each group more easily.
+
+Of the features you investigated, were there any unusual distributions?
+Did you perform any operations on the data to tidy, adjust, or change
+the form of the data? If so, why did you do this? Having visualized
+acitric acid and volatile acidity data, I observed some unusual
+distributions, so I guess this fact may have some correlation with the
+quality of red wine. Since the data is clean, I did not perform any
+cleaning process or modification of the data.
+
+\section{Bivariate Plots Section}\label{bivariate-plots-section}
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+The graph shows a very clear trend; the lower volatile acidity is, the
+higher the quality becomes. The correlation coefficient between quality
+and volatile acidity is -0.39. This can be explained by the fact that
+volatile acidity at too high of levels can lead to an unpleasant,
+vinegar taste.
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+The correlation coefficient is 0.226; the graph shows a weak positive
+relationship between quality level and citric acid.
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-20-1.pdf}
+
+With the correlation coefficient of 0.476, the graph shows a positive
+relationship between alcohol and quality level. Average quality and low
+quality wines have their percent alcohol contents concentrated around 10
+whereas high quality wines have their percent alcohol contents
+concentrated around 12.
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+A weak negative correlation of -0.2 exists between percent alcohol
+content and volatile acidity.
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-22-1.pdf}
+
+The correlation coefficient is 0.04, which indicates that there is
+almost no relationship between residual sugar and percent alcohol
+content. However, if we actually examine winemaking process, we see that
+there is a global trend for wines that are made from ripe to overly ripe
+grape fruit. To keep wines from staying too sweet, the fermentation
+process has to be left to continue until more of the sugar is consumed,
+but as a byproduct, more alcohol is present in the wines.
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-23-1.pdf}
+
+There is a negative correlation between citric acid and volatile
+acidity.
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-24-1.pdf}
+
+The correlation coefficient is -0.5, so the relationship is quite clear.
+As percent alcohol content increases, the density decreases. The reason
+is simple: the density of wine is lower than the density of pure water.
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-25-1.pdf}
+
+This graph shows positive relationship between density and fixed
+acidity, positive relationship between fixed acidity and citric acid,
+negative relationship between pH and acidity.
+
+\section{Bivariate Analysis}\label{bivariate-analysis}
+
+Talk about some of the relationships you observed in this part of the
+investigation. How did the feature(s) of interest vary with other
+features in the dataset? I observed a negative relationships between
+quality level and volatile acidity, and positive correlation between
+quality level and alcohol. I am not suprised at this result, because men
+tend to grade stronger wines as high quality, whereas wines with low
+percent alcohol are often not graded as such. High volatile acidity is
+also perceived to be undesirable because it impacts the taste of wines.
+Alcohol and volatile acidity don't have any clear relationship between
+each other.
+
+Did you observe any interesting relationships between the other features
+(not the main feature(s) of interest)? Yes, I observed positive
+relationship between density and fixed acidity, positive relationship
+between fixed acidity and citric acid, and negative relationship between
+pH and fixed acidity. Other variables either show very weak relationship
+or do not show any relationship.
+
+What was the strongest relationship you found? Quality is positively and
+strongly correlated with alcohol, and it is also negatively correlated
+with volatile acidity. Alcohol and volatile acidity could be used in a
+model to predict the quality of wine.
+
+\section{Multivariate Plots Section}\label{multivariate-plots-section}
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-26-1.pdf}
+
+The densities of high quality wines are concentrated between 0.994 and
+0.998, and the lower part of volatile acidity (y axis)
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-27-1.pdf}
+
+High quality feature seems to be associated with alcohol ranging from 11
+to 13, volatile acidity from 0.2 to 0.5, and citric acid from 0.25 to
+0.75
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-28-1.pdf}
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-28-2.pdf}
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-28-3.pdf}
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-28-4.pdf}
+
+The distribution of low and average quality wines seem to be
+concentrated at fixed acidity values that are between 6 and 10. pH
+increases as fixed acidity decreases, and citric acid increases as fixed
+acidity increases.
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-29-1.pdf}
+
+High quality wine density line is distinct from the others, and mostly
+distributed between 11 and 12.
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-30-1.pdf}
+
+This chart shows a very clear trend; as volatile acidity decreases, the
+quality of wine increases. Wines with volatile acidity exceeding 1 are
+almost rated as low quality. The linear model of volatile acidity has an
+R-squared of 0.152 which means this feature alone does not explain much
+of the variability of red wine quality.
+
+R-squared increases by two times after adding alcohol to the linear
+model.
+
+\section{Multivariate Analysis}\label{multivariate-analysis}
+
+Quality has a weak positive relationship with alcohol, and weak negative
+relationship with volatile acid. The R squared values are low but
+p-values are significant; this result indicates that the regression
+models have significant variable but explains little of the variability.
+The quality of wine does not solely depends on volatile acidity and
+alcohol but also other features. Therefore, it is hard to build a
+predictive model that can accurately predict the quality of wine.
+
+Talk about some of the relationships you observed in this part of the
+investigation. Were there features that strengthened each other in terms
+of looking at your feature(s) of interest? When looking at wine quality
+level, we see a positive relationship between fixed acidity and citric
+acid
+
+Were there any interesting or surprising interactions between features?
+Residual sugar, supposed to play an important part in wine taste,
+actually has very little impact on wine quality.
+
+OPTIONAL: Did you create any models with your dataset? Discuss the
+strengths and limitations of your model. Yes, I created 3 models. Their
+p-values are significant; however, the R squared values are under 0.4,
+so they do not provide us with enough explanation about the variability
+of the response data around their means.
+
+\section{Final Plots and Summary}\label{final-plots-and-summary}
+
+\section{Plot One}\label{plot-one}
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-32-1.pdf}
+
+\section{Description One}\label{description-one}
+
+The distribution of red wine quality appears to be normal. 82.5\% of
+wines are rated 5 and 6 (average quality). Although the rating scale is
+between 0 and 10, there exists no wine that is rated 1, 2, 9 or 10.
+
+\section{Plot Two}\label{plot-two}
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-33-1.pdf}
+
+\section{Description Two}\label{description-two}
+
+While citric citric do not have a strong correlation with quality, it is
+an important component in the quality of wine. Because citric acid is an
+organic acid that contributes to the total acidity of a wine, it is
+crucial to have a righ amount of citric acid in wine. Adding citric acid
+will give the wine ``freshness'' otherwise not present and will
+effectively make a wine more acidic. Wines with citric acid exceeding
+0.75 are hardly rated as high quality. 50\% of high quality wines have a
+relatively high citric acid that ranges between 0.3 and 0.49, whereas
+average and low quality wines have lower amount of citric acid.
+
+\section{Plot Three}\label{plot-three}
+
+\includegraphics{Wineanalysis_files/figure-latex/unnamed-chunk-34-1.pdf}
+
+\section{Description Three}\label{description-three}
+
+We observed the opposite direction to which quality levels are heading.
+Wine with high percent alcohol content and low volatile acidity tends to
+be rated as high quality wine. Based on the result, we can see that the
+volatile acidity in wine and percent alcohol content are two important
+components in the quality and taste of red wines.
+
+\section{Reflection}\label{reflection}
+
+The wines data set contains information on 1599 wines across twelve
+variables from around 2009. I started by understanding the individual
+variables in the data set, and then I explored interesting questions and
+leads as I continued to make observations on plots. Eventually, I
+explored the quality of wines across many variables and tried creating 3
+linear models to predict red wine quality.
+
+There was a trend between the volatile acidity of a wine and its
+quality. There was also a trend between the alcohol and its quality. For
+the linear model, all wines were included since information on quality,
+volatile acidity and alcohol were available for all the wines. The third
+linear model with 2 variables were able to account for 31.6\% of the
+variance in the dataset.
+
+There are very few wines that are rated as low or high quality. We could
+improve the quality of our analysis by collecting more data, and
+creating more variables that may contribute to the quality of wine. This
+will certainly improve the accuracy of the prediction models. Having
+said that, we have successfully identified features that impact the
+quality of red wine, visualized their relationships and summarized their
+statistics.
+
+
+\end{document}
