@@ -1,4 +1,5 @@
 ---
+#comentariu
 output:
   html_document: default
   pdf_document: default
@@ -13,6 +14,8 @@ knitr::opts_chunk$set(fig.width=9,fig.height=5,fig.path='Figs/',
 ```
 
 # Explore and Summarize Data by Oloeriu Lacramioara
+
+In this project, we will explore a data set on red wines quality. Our main objective is to explore the chemical properties influences the quality of red wines. This tidy data set contains 1,599 red wines with 11 variables on the chemical properties of the wine
 
 
 ```{r}
@@ -43,6 +46,9 @@ wine$X <- NULL
 
 #Univariate Plots Section
 
+There are 1,599 observation with total 13 variables.
+X is an unique identifier.
+All the variables in the dataset have numeric values except X and quality which are integer.
 ```{r}
 str(wine)
 
@@ -54,6 +60,12 @@ attach(wine)
 ```
 
 Our dataset consists of 12 variables, with 1599 observations. Quality variable is discrete and the others are continuous.
+
+Distribution and Outliers
+fixed.acidity, volatile.acidity, sulfur.dioxide, sulphated and alcohol are appeared to be long tailed.
+density and pH are normally distributed with few outliers.
+residual.sugar and chlorides have extreme outliers.
+citric.acid contains large number of zero values.
 
 ```{r}
 qplot(factor(quality), data=wine, geom="bar", xlab="Quality") + theme_bw()
@@ -71,9 +83,10 @@ uni_qplot <- function(x, dat=NULL, xlab, binwidth=0.01) {
   }
 }
 uni_qplot(x=fixed.acidity, xlab="Fixed acidity (g/dm^3)", binwidth=0.1)
+
 ```
 
-The distribution of fixed acidity is right skewed, and concentrated around 7.9
+The distribution of fixed acidity is right skewed, and concentrated around 7.9. 
 
 ```{r}
 uni_qplot(x=volatile.acidity, xlab="Volatile acidity (g/dm^3)")
@@ -81,12 +94,11 @@ summary(wine$volatile.acidity)
 
 ```
 The distribution of volatile acidity seem to be unclear whether it is bimodal or unimodel, right skewed or normal.
-
 ```{r}
 uni_qplot(citric.acid, xlab="Citric acid (g/dm^3)")
 summary(wine$citric.acid)
 ```
-The distribution of citric acid is not normal
+The distribution of citric acid is not normal.
 
 ```{r}
 uni_qplot(residual.sugar, xlab="Residual sugar (g/dm^3)", binwidth=0.5)
@@ -101,8 +113,7 @@ uni_qplot(x=chlorides, xlab="Chlorides (g/dm^3)")
 summary(wine$chlorides)
 ```
 
-The distribution of chlorides is normal, and concentrated around 0.08. The plot has some outliers.
-
+The distribution of chlorides is normal, and concentrated around 0.08. The plot has some outliers
 
 ```{r}
 uni_qplot(free.sulfur.dioxide, xlab="Free sulfur dioxide (mg/dm^3)", binwidth=0.5)
@@ -110,7 +121,7 @@ summary(wine$free.sulfur.dioxide)
 
 ```
 
-The distribution of free sulfur dioxide is right skewed and concentrated around 14
+The distribution of free sulfur dioxide is right skewed and concentrated around 14.
 
 ```{r}
 uni_qplot(total.sulfur.dioxide, xlab="Total sulfur dioxide (mg/dm^3)", binwidth=5)
@@ -126,14 +137,14 @@ summary(wine$density)
 
 ```
 
-The distribution of density is normal and concentrated around 0.9967
+The distribution of density is normal and concentrated around 0.9967.
 
 ```{r}
 uni_qplot(wine$pH, xlab="pH")
 summary(wine$pH)
 ```
 
-The distribution of pH is normal and concentrated around 3.310
+The distribution of pH is normal and concentrated around 3.310.
 
 ```{r}
 uni_qplot(sulphates, xlab="Sulphates (g/dm^3)")
@@ -149,8 +160,6 @@ summary(wine$alcohol)
 ```
 
 The distribution of alcohol is right skewed and concentrated around 10.20
-
-We divide the data into 2 groups: high quality group contains observations whose quality is 7 or 8, and low quality group has observations whose quality is 3 or 4. After examining the difference in each feature between the two groups, we see that volatile acidity, density, and citric acid may have some correation with quality. Let's visualize the data to see the difference.
 
 ```{r}
 quality78 <- subset(wine, quality == 8 | quality == 7)
@@ -327,7 +336,8 @@ Quality is positively and strongly correlated with alcohol, and it is also negat
 multi_qplot <- function(x, y, z, alpha=0.4) {
   qplot(x, y, data=wine, color=z) +
     geom_point(position=position_jitter(w = 0.025, h = 0.025), alpha=alpha) +
-    guides(alpha=FALSE)
+    guides(alpha=FALSE)+
+  scale_color_brewer(type = "div", palette = "RdYlBu", name="Quality", direction=-1)
 }
 multi_qplot(density, volatile.acidity, quality.level) +
   xlab("Density (g/cm^3)") +
@@ -338,7 +348,7 @@ multi_qplot(density, volatile.acidity, quality.level) +
 The densities of high quality wines are concentrated between 0.994 and 0.998, and the lower part of volatile acidity (y axis)
 
 ```{r}
-multi_qplot(volatile.acidity, alcohol, quality.level) + aes(size=citric.acid) +
+multi_qplot(volatile.acidity, alcohol, quality.level)  +
   xlab("Volatile acidity (g/dm^3)") +
   ylab("Alcohol (%)") + 
   labs(color="Quality level", size="Citric acid")
@@ -463,13 +473,12 @@ While citric citric do not have a strong correlation with quality, it is an impo
 #Plot Three
 
 ```{r}
-vol.alco <- multi_qplot(volatile.acidity, alcohol, quality.level) + 
-  geom_point(size=4, shape=2, colour="steelblue", alpha=0.002) + 
-  xlab("Volatile acidity (g/dm^3)") +
-  ylab("Alcohol (%)") +
-  labs(color="Quality level") +
-  scale_colour_grey() + 
-  theme_bw()
+vol.alco <- multi_qplot(volatile.acidity, alcohol, quality.level) +
+geom_point(size=4, shape=2, colour="steelblue", alpha=0.002) +
+xlab(expression(Volatile~Acidity~(g/dm^{3}))) +
+ylab("Alcohol (% by Volume)") +
+labs(color="Quality level") +
+theme_bw()
 
 # Move to a new page
 grid.newpage()
